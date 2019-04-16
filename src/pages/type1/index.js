@@ -30,7 +30,7 @@ export class Type1 extends Component {
   onLevelClick = (activeItem, levelNumber) =>{ 
     switch(levelNumber){
       case 1: 
-        this.setState({activeLevel1: activeItem, activeLevel2: '', level2Shown: true});
+        this.setState({activeLevel1: activeItem, activeLevel2: '', level2Shown: true, level3Shown: false});
         break;
       case 2:   
         this.setState({activeLevel2: activeItem,level3Shown: true});
@@ -56,7 +56,7 @@ export class Type1 extends Component {
           shown
           styles={{marginTop:"20px", paddingTop:"20px"}}
           />
-          <div className="overlay" style={{display:"flex",paddingTop:"5px", paddingBottom:"5px"}}>
+          <div >
             <Level
                 arrowRequired
                 activeListItem={activeLevel2}

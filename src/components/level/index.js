@@ -2,22 +2,21 @@ import React, { Component } from 'react'
 
 export class Level extends Component {
   render() {
-      const {data, onClick, activeListItem, arrowRequired, level, shown, boxShadow, styles} = this.props;
-      console.log(activeListItem)
-      
+      const {data, onClick, activeListItem, arrowRequired, level, shown} = this.props;
+
     return (
         <React.Fragment>
             {
                 shown ? (
-                    <div className={boxShadow? "level box-shadow": "level"}>
-                        <ul style={styles}>
+                    <div className={"level"}>
+                        <ul className="flyover-ul">
                             {
                                 data.map((item, i) =>(
                                     <li
-                                        key={i} className={activeListItem === item ? "active": ""}
+                                        key={i} className={activeListItem === item ? "active flyover-li": "flyover-li"}
                                         title={item}
                                         onClick={onClick.bind(this, item, level)}>
-                                        <span>{item.substring(0, 25)}</span>
+                                        {item.substring(0, 25)}
                                         {
                                             arrowRequired ?
                                                 <i className="fa fa-chevron-right arrow-icon"></i>:

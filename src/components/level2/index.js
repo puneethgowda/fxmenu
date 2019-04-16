@@ -2,54 +2,52 @@ import React, { Component } from 'react'
 
 export class level2 extends Component {
   render() {
-    const {data} = this.props;
+    const {data, shown,onClick} = this.props;
+    let dataKeys = Object.keys(data);
 
+    let renderList = (property, index) =>{
+        return (
+            <div>
+                <ul key={index} className="flyover-ul">
+                    <h4>{property}</h4>
+                    {
+                        data[property].map((item, i) =>(
+                            <li onClick={onClick.bind(this,item)}  className="flyover-li">{item}</li>
+                        ))
+                    }
+                </ul>
+            </div>
+        )
+    }
     
     return (
-      <div style={{width:"600px"}}>
-        
-          <div className="col-1-of-2">
+        <React.Fragment>
             {
-              Object.keys(data).map((property, index) =>{
-                if(index%2 !== 0){
-                  return (
-                    <div>
-                    <ul key={index}>
-                    <h4>{property}</h4>
-                    {
-                      data[property].map((item, i) =>(
-                        <li>{item}</li>
-                      ))
-                    }
-                  </ul>
-                  </div> 
-                  )
-                }
-              })
+                shown ? (
+                    <div className="overlay" style={{display:"flex",paddingTop:"5px", paddingBottom:"5px", width:"500px"}}>
+                        <div className="col-1-of-2">
+                            {
+                                dataKeys.slice(0,Math.ceil(dataKeys.length/2)).map((property, index) =>{
+                                    if(index%2 !== 0){
+                                        return renderList(property,index)
+                                    }
+                                })
+                            }
+                        </div>
+                        <div className="col-1-of-2">
+                            {
+                                dataKeys.slice(Math.ceil(dataKeys.length/2)+1,dataKeys.length).map((property, index) =>{
+                                    if(index%2 === 0){
+                                        return renderList(property, index)
+                                    }
+                                })
+                            }
+                        </div>
+
+                    </div>
+                ): null
             }
-          </div>
-          <div className="col-1-of-2">
-          {
-              Object.keys(data).map((property, index) =>{
-                if(index%2 === 0){
-                  return (
-                    <div key={index}>
-                    <ul >
-                    <h4>{property}</h4>
-                    {
-                      data[property].map((item, i) =>(
-                        <li>{item}</li>
-                      ))
-                    }
-                  </ul>
-                  </div> 
-                  )
-                }
-              })
-            }
-          </div>
-      
-      </div>
+        </React.Fragment>
     )
   }
 }
